@@ -39,7 +39,6 @@ def horizontal(player,posi):
     s=''
     for i in board[posi[0]]:
         s+=str(i)
-    print(s,str(player)*4)
     if str(player)*4 in s:
         return(True)
     return(False)
@@ -48,15 +47,40 @@ def vertical(player,posi):
     s=''
     for i in board:
         s+=str(i[posi[1]])
-    print(s)
     if str(player)*4 in s:
         return(True)
     return(False)
 
+def ldiagonal(player,posi):
+    s=''
+    x,y=posi[0]-min(posi[0],posi[1]),posi[1]-min(posi[0],posi[1])
+    while(x<row and y<column):
+        s+=str(board[x][y])
+        x+=1
+        y+=1
+    if str(player)*4 in s:
+        return(True)
+    return(False)    
+
+def rdiagonal(player,posi):
+    s=''
+    x,y=posi[0],posi[1]
+    while(x<row-1 and y>0):
+        x+=1
+        y-=1
+    print(x,y,posi[0],posi[1])
+    while(x>0 and y<column-1):
+        s+=str(board[x][y])
+        x-=1
+        y+=1
+    if str(player)*4 in s:
+        return(True)
+    return(False)    
+
 def victory(player,posi):
     if posi==tuple():
         return(False)
-    return(horizontal(3-player,posi) or vertical(3-player,posi))# or rdiagonal() or ldiagonal())
+    return(horizontal(3-player,posi) or vertical(3-player,posi) or ldiagonal(3-player,posi) or rdiagonal(3-player,posi))
 
 def play(player):
     posi=tuple()
@@ -72,5 +96,5 @@ def play(player):
 
 
 (row,column)=level()
-player=1
+player=0
 play(player)
