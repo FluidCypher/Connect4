@@ -4,6 +4,10 @@ def construct(x,y):
     global board 
     board = [[0 for i in range(y)] for j in range(x)]
 
+def tie():
+    if 0 in board[0]:
+        return(False)
+    return(True)
 def level():
     i=int(input())
     if(i==1):
@@ -96,7 +100,7 @@ def victory(player,posi):
 
 def play(player):
     posi=tuple()
-    while(not victory(player+1,posi)):
+    while(not victory(player+1,posi) and not tie()):
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -109,8 +113,6 @@ def play(player):
                     pygame.draw.circle(screen,(200,0,200),(event.pos[0],size//2),radius)
                 pygame.display.update()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                
-                print("Player : ",player+1)
                 position=event.pos[0]//size+1
                 if not check_legal(position):
                     play(player)
