@@ -119,6 +119,7 @@ def play(player):
 
                 posi=insert(position-1,player)
                 player=(player+1)%2  
+                display()
                 draw()
 
 
